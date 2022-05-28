@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.
-             org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="ISO-8859-1">
@@ -12,7 +12,7 @@
 </head>
 <style>
     .navbar {
-        background-color: green;
+        background-color: #33DBFF;
     }
 </style>
 
@@ -44,12 +44,26 @@
 </nav>
 
 <br><br><br><br>
-<div class="container">
-    <div class="alert alert-success">
-        <strong>Success!</strong> Login Successful.
+    <div sec:authorize="isAuthenticated()">
+        <div class="container">
+            <div class="alert alert-success">
+                <strong>Success!</strong> Authenticated as
+                <strong><span sec:authentication="name"></span></strong>
+            </div>
+
+            <form th:action="@{/new}" method="post">
+                <button type="submit" class="btn btn-success m-2">Add new symptom</button>
+            </form>
+
+
+<!--- list of "your symptoms" below --->
+
+
+
+
+
     </div>
 </div>
-<input type="hidden" th:name="${_csrf.parameterName}"
-       th:value="${_csrf.token}" />
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 </body>
 </html>
